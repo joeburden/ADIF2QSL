@@ -4,7 +4,7 @@ This program reads ADIF files containing QSO (contact) records and generates cus
 ### Requirements
 To run this program, you'll need:
 1. **Python**: Make sure you have Python installed on your system. Download from [python.org](https://www.python.org).
-2. **Inkscape**: Used to convert SVG files to PNG. Download from the [official website](https://inkscape.org).
+2. **Inkscape**: Used to convert SVG files to PNG. Download from the [official website](https://inkscape.org).  Until I get the PNG conversion worked out with the python libraries, I am going to use inkscape commands from the command line to generate the PNG.
 3. **Python Libraries**: You'll need the `Pillow` library for image processing, `xml.etree.ElementTree` for parsing SVG content, `re` for regular expressions, and `subprocess` for running external commands.
 
 Install the required Python libraries using pip:

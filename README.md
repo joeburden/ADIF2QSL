@@ -30,6 +30,7 @@ The required libraries will load.
 When you finish you can type <venvname>\Scripts\Deactivate
 
 For a primer on Python Virtual Environments go to https://realpython.com/python-virtual-environments-a-primer/
+
 ### Input Files
 1. **ADIF File**: Contains QSO records.
 2. **SVG Template**: An SVG file with placeholders for the fields you want to replace.

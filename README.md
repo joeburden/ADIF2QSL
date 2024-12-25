@@ -12,12 +12,13 @@ I recommend installing this into a python virtual environment to avoid conflicts
 You can do that by creating a directory where you want to run this 
 
 For example:
-mkdir adif2qsl
+mkdir adif2qsl 
 cd into that directory
 paste the files from GitHub repo
 
 Then create your Python virtual environment wih the command:
 Python3 -m venv <nameofyourvirtualenvironment>
+
 
 You must then activate that virtual environment (you will see parenthesis in front of prompt after activating)
 Activate your virtual env with <venvname>\Scripts\Activate

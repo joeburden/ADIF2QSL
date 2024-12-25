@@ -7,10 +7,9 @@ To run this program, you'll need:
 2. **Inkscape**: Used to convert SVG files to PNG. Download from the [official website](https://inkscape.org).
 3. **Python Libraries**: You'll need the `Pillow` library for image processing, `xml.etree.ElementTree` for parsing SVG content, `re` for regular expressions, and `subprocess` for running external commands.
 
-Install the required Python library using pip:
-```sh
-pip install pillow
-```
+Install the required Python libraries using pip:
+Use the command
+pip install -r requirements. txt
 
 ### Input Files
 1. **ADIF File**: Contains QSO records.

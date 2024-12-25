@@ -14,6 +14,7 @@ pip install -r requirements. txt
 ### Input Files
 1. **ADIF File**: Contains QSO records.
 2. **SVG Template**: An SVG file with placeholders for the fields you want to replace.
+   Variables/Placeholders will be in the form of $VAR_<fieldname in input.adif>
 
 ### Output Files
 1. **SVG Files**: Modified SVG files for each QSO record.

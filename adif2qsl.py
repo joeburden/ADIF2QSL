@@ -105,7 +105,6 @@ output_dir = 'output_files'  # Output directory for SVG and PNG files
 csv_file_no_email = os.path.join(output_dir, 'NOEMAIL.CSV')  # CSV file path for call signs with no email
 csv_file_success = os.path.join(output_dir, 'SUCCESS.CSV')  # CSV file path for successfully created SVG and PNG files
 csv_file_yes_email = os.path.join(output_dir, 'YESEMAIL.CSV')  # CSV file path for call signs with email
-svg_backup_file = os.path.join(output_dir, 'template_backup.svg')  # Backup SVG file path
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_dir):
@@ -115,12 +114,6 @@ if not os.path.exists(output_dir):
 write_headers(csv_file_no_email, ["CALL_SIGN"])
 write_headers(csv_file_success, ["CALL_SIGN", "EMAIL"])
 write_headers(csv_file_yes_email, ["CALL_SIGN", "EMAIL", "PNG_PATH"])
-
-# Create a backup of the original SVG file
-if not os.path.exists(svg_backup_file):
-    with open(svg_file, 'r') as original, open(svg_backup_file, 'w') as backup:
-        backup.write(original.read())
-        logging.info(f'Backup of SVG template created at {svg_backup_file}')
 
 # Read ADIF records
 adif_records = read_adif(adif_file)

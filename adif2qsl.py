@@ -140,6 +140,7 @@ for record in adif_records:
         address, extracted_zip_code = extract_zip_from_address(address)
         state, country = extract_state_and_country(address)
         zip_code = extracted_zip_code or zip_code
+        state = state.upper()  # Convert state to upper case
     
     if email:
         output_svg_file = os.path.join(output_dir, f'{call_sign}.svg')

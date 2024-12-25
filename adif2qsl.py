@@ -3,7 +3,7 @@ import csv
 import logging
 from PIL import Image, ImageDraw, ImageFont
 import xml.etree.ElementTree as ET
-import re  # Import the re module
+import re
 import subprocess
 
 # Ensure the output_files directory exists
@@ -11,9 +11,8 @@ output_dir = 'output_files'
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
-
 # Configure logging
-logging.basicConfig(filename=os.path.join('output_files', 'debug.txt'),
+logging.basicConfig(filename=os.path.join(output_dir, 'debug.txt'),
                     filemode='w',
                     level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -83,15 +82,10 @@ def convert_svg_to_png(svg_file, png_file):
     except subprocess.CalledProcessError as e:
         logging.error(f'Error converting {svg_file} to {png_file}: {e}')
 
-def append_to_csv(file_path, call_sign, email=None, png_path=None):
+def append_to_csv(file_path, call_sign, email=None, png_path=None, address=None, city=None, state=None, zip_code=None):
     with open(file_path, 'a', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
-        if email and png_path:
-            csv_writer.writerow([call_sign, email, png_path])
-        elif email:
-            csv_writer.writerow([call_sign, email])
-        else:
-            csv_writer.writerow([call_sign])
+        csv_writer.writerow([call_sign, email, png_path, address, city, state, zip_code])
 
 def write_headers(csv_file, headers):
     with open(csv_file, 'w', newline='') as csvfile:
@@ -112,7 +106,7 @@ if not os.path.exists(output_dir):
 
 # Write headers to CSV files
 write_headers(csv_file_no_email, ["CALL_SIGN"])
-write_headers(csv_file_success, ["CALL_SIGN", "EMAIL"])
+write_headers(csv_file_success, ["CALL_SIGN", "EMAIL", "PNG_PATH", "ADDRESS", "CITY", "STATE", "ZIP_CODE"])
 write_headers(csv_file_yes_email, ["CALL_SIGN", "EMAIL", "PNG_PATH"])
 
 # Read ADIF records
@@ -124,6 +118,10 @@ for record in adif_records:
     adif_data = record  # Directly use the parsed record
     call_sign = adif_data.get('CALL', 'unknown')
     email = adif_data.get('EMAIL')
+    address = adif_data.get('ADDRESS')
+    city = adif_data.get('CITY')
+    state = adif_data.get('STATE')
+    zip_code = adif_data.get('ZIP')
 
     if email:
         output_svg_file = os.path.join(output_dir, f'{call_sign}.svg')
@@ -143,8 +141,8 @@ for record in adif_records:
         # Convert SVG to PNG using Inkscape
         convert_svg_to_png(output_svg_file, output_png_file)
     
-        # Append the call sign, email, and PNG file path to the success CSV
-        append_to_csv(csv_file_success, call_sign, email)
+        # Append the call sign, email, PNG file path, address, city, state, and zip code to the success CSV
+        append_to_csv(csv_file_success, call_sign, email, full_png_path, address, city, state, zip_code)
         append_to_csv(csv_file_yes_email, call_sign, email, full_png_path)
     else:
         append_to_csv(csv_file_no_email, call_sign)

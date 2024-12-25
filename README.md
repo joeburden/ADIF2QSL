@@ -42,8 +42,8 @@ For a primer on Python Virtual Environments go to https://realpython.com/python-
 2. **PNG Files**: Converted PNG files for each QSO record, generated using Inkscape.
 3. **CSV Logs**:
    - `NOEMAIL.CSV`: Call signs with no email.
-   - `SUCCESS.CSV`: Successfully created SVG and PNG files.
-   - `YESEMAIL.CSV`: Call signs with email, including the full path of the corresponding PNG files.
+   - `SUCCESS.CSV`: Successfully created SVG and PNG files.  Use this file for print and postal mailing in the future.
+   - `YESEMAIL.CSV`: Call signs with email, including the full path of the corresponding PNG files.  Use this file for email merge.
 
 ### Program Steps
 

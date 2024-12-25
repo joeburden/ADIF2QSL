@@ -82,10 +82,10 @@ def convert_svg_to_png(svg_file, png_file):
     except subprocess.CalledProcessError as e:
         logging.error(f'Error converting {svg_file} to {png_file}: {e}')
 
-def append_to_csv(file_path, call_sign, email=None, png_path=None, address=None, qth=None, zip_code=None, state=None, country=None):
+def append_to_csv(file_path, call_sign, email=None, png_path=None, address=None, qth=None, state=None, zip_code=None, country=None):
     with open(file_path, 'a', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
-        csv_writer.writerow([call_sign, email, png_path, address, qth, zip_code, state, country])
+        csv_writer.writerow([call_sign, email, png_path, address, qth, state, zip_code, country])
 
 def write_headers(csv_file, headers):
     with open(csv_file, 'w', newline='') as csvfile:
@@ -94,7 +94,7 @@ def write_headers(csv_file, headers):
 
 def extract_state_and_country(address):
     parts = address.split(',')
-    state = parts[-2].strip() if len(parts) >= 2 else ''
+    state = parts[-2].split()[-1].strip() if len(parts) >= 2 else ''
     country = parts[-1].strip() if len(parts) >= 1 else ''
     return state, country
 
@@ -105,12 +105,6 @@ def extract_zip_from_address(address):
         address = address.replace(zip_code, '').strip()
         return address, zip_code
     return address, ''
-
-def clean_state_field(state, qth):
-    # Remove the QTH part and keep only the 2-letter state abbreviation
-    if qth and qth in state:
-        state = state.replace(qth, '').strip()
-    return state[:2]
 
 # Define file paths
 adif_file = 'input.adif'  # Input ADIF file path
@@ -126,7 +120,7 @@ if not os.path.exists(output_dir):
 
 # Write headers to CSV files
 write_headers(csv_file_no_email, ["CALL_SIGN"])
-write_headers(csv_file_success, ["CALL_SIGN", "EMAIL", "PNG_PATH", "ADDRESS", "QTH", "ZIP_CODE", "STATE", "COUNTRY"])
+write_headers(csv_file_success, ["CALL_SIGN", "EMAIL", "PNG_PATH", "ADDRESS", "QTH", "STATE", "ZIP_CODE", "COUNTRY"])
 write_headers(csv_file_yes_email, ["CALL_SIGN", "EMAIL", "PNG_PATH"])
 
 # Read ADIF records
@@ -146,7 +140,6 @@ for record in adif_records:
         address, extracted_zip_code = extract_zip_from_address(address)
         state, country = extract_state_and_country(address)
         zip_code = extracted_zip_code or zip_code
-        state = clean_state_field(state, qth)
     
     if email:
         output_svg_file = os.path.join(output_dir, f'{call_sign}.svg')
@@ -166,8 +159,8 @@ for record in adif_records:
         # Convert SVG to PNG using Inkscape
         convert_svg_to_png(output_svg_file, output_png_file)
     
-        # Append the call sign, email, PNG file path, address, qth, zip code, state, and country to the success CSV
-        append_to_csv(csv_file_success, call_sign, email, full_png_path, address, qth, zip_code, state, country)
+        # Append the call sign, email, PNG file path, address, qth, state, zip code, and country to the success CSV
+        append_to_csv(csv_file_success, call_sign, email, full_png_path, address, qth, state, zip_code, country)
         append_to_csv(csv_file_yes_email, call_sign, email, full_png_path)
     else:
         append_to_csv(csv_file_no_email, call_sign)

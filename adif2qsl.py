@@ -106,6 +106,12 @@ def extract_zip_from_address(address):
         return address, zip_code
     return address, ''
 
+def clean_state_field(state, qth):
+    # Remove the QTH part and keep only the 2-letter state abbreviation
+    if qth and qth in state:
+        state = state.replace(qth, '').strip()
+    return state[:2]
+
 # Define file paths
 adif_file = 'input.adif'  # Input ADIF file path
 svg_file = 'template.svg'  # Template SVG file path
@@ -134,13 +140,13 @@ for record in adif_records:
     email = adif_data.get('EMAIL')
     address = adif_data.get('ADDRESS')
     qth = adif_data.get('QTH')
-    city = adif_data.get('CITY')
     zip_code = adif_data.get('ZIP')
     
     if address:
         address, extracted_zip_code = extract_zip_from_address(address)
         state, country = extract_state_and_country(address)
         zip_code = extracted_zip_code or zip_code
+        state = clean_state_field(state, qth)
     
     if email:
         output_svg_file = os.path.join(output_dir, f'{call_sign}.svg')

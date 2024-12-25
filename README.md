@@ -28,7 +28,7 @@ pip install -r requirements. txt
 
 The required libraries will load.
 
-When you finish you can type <venvname>\Scripts\Deactivate
+When you finish you can type: venvname\Scripts\Deactivate
 
 For a primer on Python Virtual Environments go to https://realpython.com/python-virtual-environments-a-primer/
 

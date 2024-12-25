@@ -8,9 +8,28 @@ To run this program, you'll need:
 3. **Python Libraries**: You'll need the `Pillow` library for image processing, `xml.etree.ElementTree` for parsing SVG content, `re` for regular expressions, and `subprocess` for running external commands.
 
 Install the required Python libraries using pip:
+I recommend installing this into a python virtual environment to avoid conflicts with other programs
+You can do that by creating a directory where you want to run this 
+
+For example:
+mkdir adif2qsl
+cd into that directory
+paste the files from GitHub repo
+
+Then create your Python virtual environment wih the command:
+Python3 -m venv <nameofyourvirtualenvironment>
+
+You must then activate that virtual environment (you will see parenthesis in front of prompt after activating)
+Activate your virtual env with <venvname>\Scripts\Activate
+
 Use the command
 pip install -r requirements. txt
 
+The required libraries will load.
+
+When you finish you can type <venvname>\Scripts\Deactivate
+
+For a primer on Python Virtual Environments go to https://realpython.com/python-virtual-environments-a-primer/
 ### Input Files
 1. **ADIF File**: Contains QSO records.
 2. **SVG Template**: An SVG file with placeholders for the fields you want to replace.

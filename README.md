@@ -17,7 +17,7 @@ cd into that directory
 paste the files from GitHub repo
 
 Then create your Python virtual environment wih the command:
-Python3 -m venv <nameofyourvirtualenvironment>
+Python3 -m venv nameofyourvirtualenvironment
 
 
 You must then activate that virtual environment (you will see parenthesis in front of prompt after activating)

@@ -21,7 +21,7 @@ Python3 -m venv nameofyourvirtualenvironment
 
 
 You must then activate that virtual environment (you will see parenthesis in front of prompt after activating)
-Activate your virtual env with <venvname>\Scripts\Activate
+Activate your virtual env with venvname\Scripts\Activate
 
 Use the command
 pip install -r requirements. txt

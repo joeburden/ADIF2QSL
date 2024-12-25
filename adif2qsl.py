@@ -6,6 +6,12 @@ import xml.etree.ElementTree as ET
 import re  # Import the re module
 import subprocess
 
+# Ensure the output_files directory exists
+output_dir = 'output_files'
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+
 # Configure logging
 logging.basicConfig(filename=os.path.join('output_files', 'debug.txt'),
                     filemode='w',

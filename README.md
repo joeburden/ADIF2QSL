@@ -64,6 +64,7 @@ For a primer on Python Virtual Environments go to https://realpython.com/python-
 1. **Prepare Input Files**:
    - Ensure you have an ADIF file (`input.adif`) containing your QSO records.
    - Create an SVG template file (`template.svg`) with placeholders for the fields you want to replace.
+   - I have provided an example input.adif and template.svg for you to test how it works.  Make your own QSL template.
 
 2. **Script Setup**:
    - Place the script in the same directory as your input ADIF file and SVG template.

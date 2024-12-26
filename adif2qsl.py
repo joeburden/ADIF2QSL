@@ -123,12 +123,18 @@ write_headers(csv_file_no_email, ["CALL_SIGN"])
 write_headers(csv_file_success, ["CALL_SIGN", "EMAIL", "PNG_PATH", "ADDRESS", "QTH", "STATE", "ZIP_CODE", "COUNTRY"])
 write_headers(csv_file_yes_email, ["CALL_SIGN", "EMAIL", "PNG_PATH"])
 
+# Initialize counters for summary
+total_callsigns = 0
+callsigns_with_email = 0
+callsigns_without_email = 0
+
 # Read ADIF records
 adif_records = read_adif(adif_file)
 svg_template = read_svg(svg_file)
 
 # Process each record and save as SVG and PNG files
 for record in adif_records:
+    total_callsigns += 1
     adif_data = record  # Directly use the parsed record
     call_sign = adif_data.get('CALL', 'unknown')
     email = adif_data.get('EMAIL')
@@ -143,6 +149,7 @@ for record in adif_records:
         state = state.upper()  # Convert state to upper case
     
     if email:
+        callsigns_with_email += 1
         output_svg_file = os.path.join(output_dir, f'{call_sign}.svg')
         output_png_file = os.path.join(output_dir, f'{call_sign}.png')
         full_png_path = os.path.abspath(output_png_file)
@@ -164,6 +171,20 @@ for record in adif_records:
         append_to_csv(csv_file_success, call_sign, email, full_png_path, address, qth, state, zip_code, country)
         append_to_csv(csv_file_yes_email, call_sign, email, full_png_path)
     else:
+        callsigns_without_email += 1
         append_to_csv(csv_file_no_email, call_sign)
 
-logging.info(f"All records processed. Check {csv_file_no_email} for call signs with no email address, {csv_file_yes_email} for call signs with email, and {csv_file_success} for successfully created SVG and PNG files.")
+# Print summary to console
+summary = (f"Total call signs processed: {total_callsigns}\n"
+           f"Call signs with email addresses: {callsigns_with_email}\n"
+           f"Call signs without email addresses: {callsigns_without_email}")
+
+print(summary)
+
+# Write summary to summary.txt file
+summary_file_path = os.path.join(output_dir, 'summary.txt')
+with open(summary_file_path, 'w') as summary_file:
+    summary_file.write(summary)
+
+logging.info("All records processed. Check NOEMAIL.CSV for call signs with no email address, YESEMAIL.CSV for call signs with email, and SUCCESS.CSV for successfully created SVG and PNG files.")
+logging.info(summary)

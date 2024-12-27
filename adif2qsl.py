@@ -148,30 +148,32 @@ for record in adif_records:
         zip_code = extracted_zip_code or zip_code
         state = state.upper()  # Convert state to upper case
     
+    output_svg_file = os.path.join(output_dir, f'{call_sign}.svg')
+    output_png_file = os.path.join(output_dir, f'{call_sign}.png')
+    full_png_path = os.path.abspath(output_png_file)
+
+    # Map ADIF fields to SVG placeholders
+    mapped_svg_content = map_fields(adif_data, svg_template)
+
+    # Save the modified SVG content to a new file
+    save_svg(mapped_svg_content, output_svg_file)
+    logging.info(f'Successfully mapped fields and saved to {output_svg_file}')
+
+    # Debugging: Log the mapped SVG content
+    logging.debug(f"Mapped SVG Content: {mapped_svg_content}")
+
+    # Convert SVG to PNG using Inkscape
+    convert_svg_to_png(output_svg_file, output_png_file)
+    
     if email:
         callsigns_with_email += 1
-        output_svg_file = os.path.join(output_dir, f'{call_sign}.svg')
-        output_png_file = os.path.join(output_dir, f'{call_sign}.png')
-        full_png_path = os.path.abspath(output_png_file)
-    
-        # Map ADIF fields to SVG placeholders
-        mapped_svg_content = map_fields(adif_data, svg_template)
-    
-        # Save the modified SVG content to a new file
-        save_svg(mapped_svg_content, output_svg_file)
-        logging.info(f'Successfully mapped fields and saved to {output_svg_file}')
-    
-        # Debugging: Log the mapped SVG content
-        logging.debug(f"Mapped SVG Content: {mapped_svg_content}")
-    
-        # Convert SVG to PNG using Inkscape
-        convert_svg_to_png(output_svg_file, output_png_file)
-    
         # Append the call sign, email, PNG file path, address, qth, state, zip code, and country to the success CSV
         append_to_csv(csv_file_success, call_sign, email, full_png_path, address, qth, state, zip_code, country)
         append_to_csv(csv_file_yes_email, call_sign, email, full_png_path)
     else:
         callsigns_without_email += 1
+        # Even if there's no email, still append to the success CSV with empty email
+        append_to_csv(csv_file_success, call_sign, '', full_png_path, address, qth, state, zip_code, country)
         append_to_csv(csv_file_no_email, call_sign)
 
 # Print summary to console

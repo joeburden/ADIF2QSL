@@ -14,7 +14,7 @@ You can do that by creating a directory where you want to run this
 For example:
 mkdir adif2qsl 
 cd into that directory
-paste the files from GitHub repo
+paste the files from GitHub repo or use Git to clone the repo per https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
 
 Then create your Python virtual environment wih the command:
 Python3 -m venv nameofyourvirtualenvironment

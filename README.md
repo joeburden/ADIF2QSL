@@ -73,7 +73,7 @@ For a primer on Python Virtual Environments go to https://realpython.com/python-
 3. **Run the Script**:
    - Run the script using Python:
    ```sh
-   python your_script_name.py
+   python adif2qsl.py
    ```
 
 4. **Check Outputs**:

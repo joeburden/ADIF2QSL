@@ -190,3 +190,5 @@ with open(summary_file_path, 'w') as summary_file:
 
 logging.info("All records processed. Check NOEMAIL.CSV for call signs with no email address, YESEMAIL.CSV for call signs with email, and SUCCESS.CSV for successfully created SVG and PNG files.")
 logging.info(summary)
+
+# Comment by joe

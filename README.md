@@ -95,3 +95,6 @@ For a primer on Python Virtual Environments, go to [Real Python Virtual Environm
 ** If your outputted PNG files do not look correct **
 You might have embedded files in your svg that should be converted to PATH so they are native to SVG format.
 Try one of the example files provided and if that works it is more than likely a problem with your SVG file having issues.
+
+Other issues that have poppped up is that this code does not handle netlogger adif files very well because fields are not correct in the netlogger ADIF files.
+This program works great with Log4OM ADIF files.

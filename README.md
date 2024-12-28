@@ -92,6 +92,8 @@ For a primer on Python Virtual Environments, go to [Real Python Virtual Environm
    - **CSV Logs**: Check the `NOEMAIL.CSV` for call signs with no email, `SUCCESS.CSV` for successfully created SVG and PNG files, and `YESEMAIL.CSV` for call signs with email.
    - **Debugging Logs**: Review the `debug.txt` file for detailed debugging information.
 ```
+
+```
 ** If your outputted PNG files do not look correct **
 You might have embedded files in your svg that should be converted to PATH so they are native to SVG format.
 Try one of the example files provided and if that works it is more than likely a problem with your SVG file having issues.
@@ -99,4 +101,5 @@ Try one of the example files provided and if that works it is more than likely a
 Other issues that have poppped up is that this code does not handle netlogger adif files very well because fields are not correct in the netlogger ADIF files.
 This program works great with Log4OM ADIF files.
 
-For a broad overview of how this works take a look at the early stages of this project on [My YouTube Channel](https://youtu.be/_m5ODk8ZCnU?si=RLOafmJaS24ucubg).
+For a broad overview of how this works take a look at the early stages of this project on [My YouTube Channel](https://youtu.be/_m5ODk8ZCnU?si=RLOafmJaS24ucubg/).
+```

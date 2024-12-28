@@ -98,3 +98,5 @@ Try one of the example files provided and if that works it is more than likely a
 
 Other issues that have poppped up is that this code does not handle netlogger adif files very well because fields are not correct in the netlogger ADIF files.
 This program works great with Log4OM ADIF files.
+
+For a broad overview of how this works take a look at the early stages of this project on [My YouTube Channel](https://youtu.be/_m5ODk8ZCnU?si=RLOafmJaS24ucubg).

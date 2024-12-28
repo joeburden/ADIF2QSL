@@ -1,0 +1,3 @@
+Total call signs processed: 4
+Call signs with email addresses: 3
+Call signs without email addresses: 1

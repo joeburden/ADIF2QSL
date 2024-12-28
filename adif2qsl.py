@@ -4,7 +4,7 @@ import logging
 from PIL import Image, ImageDraw, ImageFont
 import xml.etree.ElementTree as ET
 import re
-import subprocess
+import cairosvg
 
 # Ensure the output_files directory exists
 output_dir = 'output_files'
@@ -74,12 +74,11 @@ def save_svg(svg_content, output_file):
         f.write(svg_content)
 
 def convert_svg_to_png(svg_file, png_file):
-    # Using Inkscape's command line interface to convert SVG to PNG
-    command = f'inkscape {svg_file} --export-filename={png_file}'
+    # Convert SVG to PNG using CairoSVG
     try:
-        subprocess.run(command, shell=True, check=True)
-        logging.info(f'Successfully converted {svg_file} to {png_file} using Inkscape.')
-    except subprocess.CalledProcessError as e:
+        cairosvg.svg2png(url=svg_file, write_to=png_file)
+        logging.info(f'Successfully converted {svg_file} to {png_file} using CairoSVG.')
+    except Exception as e:
         logging.error(f'Error converting {svg_file} to {png_file}: {e}')
 
 def append_to_csv(file_path, call_sign, email=None, png_path=None, address=None, qth=None, state=None, zip_code=None, country=None):
@@ -162,7 +161,7 @@ for record in adif_records:
     # Debugging: Log the mapped SVG content
     logging.debug(f"Mapped SVG Content: {mapped_svg_content}")
 
-    # Convert SVG to PNG using Inkscape
+    # Convert SVG to PNG using CairoSVG
     convert_svg_to_png(output_svg_file, output_png_file)
     
     if email:
@@ -190,5 +189,3 @@ with open(summary_file_path, 'w') as summary_file:
 
 logging.info("All records processed. Check NOEMAIL.CSV for call signs with no email address, YESEMAIL.CSV for call signs with email, and SUCCESS.CSV for successfully created SVG and PNG files.")
 logging.info(summary)
-
-# Comment by joe

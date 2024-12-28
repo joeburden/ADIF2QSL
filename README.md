@@ -91,4 +91,3 @@ For a primer on Python Virtual Environments, go to [Real Python Virtual Environm
    - **Debugging Logs**: Review the `debug.txt` file for detailed debugging information.
 ```
 
-You can copy this entire code block into your `README.md` file. Let me know if you need any further adjustments or have additional questions!

@@ -32,6 +32,8 @@ Use the command:
 ```sh
 pip install -r requirements.txt
 ```
+** Note **
+For your required libraries to load from the requirements file you must be in the same directory as the requirements.txt file.  
 
 The required libraries will load.
 

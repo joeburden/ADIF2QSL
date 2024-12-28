@@ -92,4 +92,6 @@ For a primer on Python Virtual Environments, go to [Real Python Virtual Environm
    - **CSV Logs**: Check the `NOEMAIL.CSV` for call signs with no email, `SUCCESS.CSV` for successfully created SVG and PNG files, and `YESEMAIL.CSV` for call signs with email.
    - **Debugging Logs**: Review the `debug.txt` file for detailed debugging information.
 ```
-
+** If your outputted PNG files do not look correct **
+You might have embedded files in your svg that should be converted to PATH so they are native to SVG format.
+Try one of the example files provided and if that works it is more than likely a problem with your SVG file having issues.

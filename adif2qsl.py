@@ -48,48 +48,29 @@ def read_svg(svg_file):
         svg_content = f.read()
     return svg_content
 
-## Commented out the map_fields function to replace it with one that handles the / character 
-#def map_fields(adif_data, svg_content):
-#    for field, value in adif_data.items():
-#       placeholder = f'$VAR_{field}'
-#        if placeholder in svg_content:
-#            if value:
-#                if field in ['TIME_ON', 'TIME_OFF']:
-#                    # Insert colons between every two digits
-#                    value = ':'.join([value[i:i+2] for i in range(0, len(value), 2)])
-#                elif field == 'QSO_DATE':
-#                    # Format the date as YYYY/MM/DD
-#                    value = f"{value[:4]}/{value[4:6]}/{value[6:]}"
-#                svg_content = svg_content.replace(placeholder, value)
-#            else:
-#                # Remove the placeholder if there is no data to replace it
-#                svg_content = svg_content.replace(placeholder, '')
-#   
-#    # Remove any remaining placeholders that were not replaced
-#    svg_content = re.sub(r'\$VAR_[A-Z_]+', '', svg_content)
-#    
-#    return svg_content
-
-
 def map_fields(adif_data, svg_content):
     for field, value in adif_data.items():
-        placeholder = f'$VAR_{field}'
-        if placeholder in svg_content:
+       placeholder = f'$VAR_{field}'
+       if placeholder in svg_content:
             if value:
-                # Insert colons between every two digits (unchanged)
                 if field in ['TIME_ON', 'TIME_OFF']:
+                    # Insert colons between every two digits
                     value = ':'.join([value[i:i+2] for i in range(0, len(value), 2)])
-                # Format the date as YYYY/MM/DD
                 elif field == 'QSO_DATE':
+                    # Format the date as YYYY/MM/DD
                     value = f"{value[:4]}/{value[4:6]}/{value[6:]}"
-                else:
-                    value = re.sub(r'/', '\\/', value)  # Escape `/` characters
                 svg_content = svg_content.replace(placeholder, value)
             else:
-                # If the field has a placeholder but no corresponding ADIF data, 
-                # replace it with an empty string or a default value.
+                # Remove the placeholder if there is no data to replace it
                 svg_content = svg_content.replace(placeholder, '')
+   
+    # Remove any remaining placeholders that were not replaced
+    svg_content = re.sub(r'\$VAR_[A-Z_]+', '', svg_content)
+    
     return svg_content
+
+
+
 
 def save_svg(svg_content, output_file):
     with open(output_file, 'w') as f:
